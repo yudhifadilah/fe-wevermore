@@ -1,4 +1,4 @@
-# Fyneeds Transcript Frontend
+# Wevermore Transcript Frontend
 
 Frontend Next.js App Router untuk merender transcript ticket yang diterima dari backend.
 

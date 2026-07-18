@@ -21,7 +21,7 @@ export default async function TranscriptPage({ params, searchParams }: PageProps
   const backend = (process.env.BACKEND_INTERNAL_URL || process.env.NEXT_PUBLIC_BACKEND_URL || "").replace(/\/$/, "");
 
   if (!backend || !id || !uaid || !exp || !sig) {
-    return <ErrorState title="URL transcript tidak lengkap" detail="Pastikan Anda membuka URL asli yang dikirim oleh bot Fyneeds." />;
+    return <ErrorState title="URL transcript tidak lengkap" detail="Pastikan Anda membuka URL asli yang dikirim oleh bot Wevermore." />;
   }
 
   const tokenQuery = new URLSearchParams({ uaid, exp, sig });
@@ -54,7 +54,8 @@ function ErrorState({ title, detail }: { title: string; detail: string }) {
   return (
     <main className="landing-shell">
       <section className="landing-card error-card">
-        <span className="eyebrow">FYNEEDS TRANSCRIPT</span>
+        <div className="brand-avatar">W</div>
+        <span className="eyebrow">WEVERMORE TRANSCRIPT</span>
         <h1>{title}</h1>
         <p>{detail}</p>
       </section>

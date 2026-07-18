@@ -18,7 +18,7 @@ function formatDate(value: string) {
 }
 
 function EmbedCard({ embed }: { embed: DiscordEmbed }) {
-  const borderColor = embed.color ? `#${embed.color.toString(16).padStart(6, "0")}` : "#5865f2";
+  const borderColor = embed.color ? `#${embed.color.toString(16).padStart(6, "0")}` : "#ff4fb8";
   return (
     <section className="discord-embed" style={{ borderLeftColor: borderColor }}>
       {embed.author?.name ? <div className="embed-author">{embed.author.name}</div> : null}
@@ -45,19 +45,45 @@ function EmbedCard({ embed }: { embed: DiscordEmbed }) {
 
 export default function TranscriptView({ data }: { data: TranscriptResponse }) {
   const transcript = data.transcript;
+  const shopName = "Wevermore";
   return (
     <main className="page-shell">
       <header className="transcript-header">
         <div className="header-topline">
-          <div>
-            <span className="eyebrow">{transcript.shop_name} • Ticket Transcript</span>
-            <h1>#{transcript.channel_name}</h1>
+          <div className="profile-heading">
+            <div className="brand-avatar">W</div>
+            <div>
+              <span className="eyebrow">{shopName} - Ticket Transcript</span>
+              <h1>#{transcript.channel_name}</h1>
+              <p className="header-subtitle">Riwayat ticket tersimpan aman dengan signed URL dan masa berlaku terbatas.</p>
+            </div>
           </div>
           <div className="download-actions">
             <a className="button primary" href={data.download_html_url}>Download HTML</a>
             <a className="button secondary" href={data.download_gzip_url}>Download JSON.GZ</a>
           </div>
         </div>
+
+        <div className="support-tabs" aria-label="Status transcript">
+          <span className="support-tab active">Transcript</span>
+          <span className="support-tab">Protected</span>
+          <span className="support-tab">Expires {formatDate(data.expires_at)}</span>
+        </div>
+
+        <section className="checkout-panel" aria-label="Ringkasan ticket">
+          <div>
+            <span className="panel-label">Nominal Ticket</span>
+            <strong>{rupiahFormatter.format(transcript.amount)}</strong>
+          </div>
+          <div>
+            <span className="panel-label">Buyer</span>
+            <strong>{transcript.buyer_username}</strong>
+          </div>
+          <div>
+            <span className="panel-label">Kategori</span>
+            <strong>{transcript.category}</strong>
+          </div>
+        </section>
 
         <section className="metadata-grid">
           <div><span>Ticket ID</span><strong>{transcript.ticket_id}</strong></div>
@@ -87,7 +113,7 @@ export default function TranscriptView({ data }: { data: TranscriptResponse }) {
                 <div className="avatar avatar-fallback">{initial}</div>
               )}
               <div className="message-body">
-                {message.reply_to_id ? <a className="reply-reference" href={`#message-${message.reply_to_id}`}>↳ Membalas pesan sebelumnya</a> : null}
+                {message.reply_to_id ? <a className="reply-reference" href={`#message-${message.reply_to_id}`}>Membalas pesan sebelumnya</a> : null}
                 <div className="message-heading">
                   <strong>{displayName}</strong>
                   <span>@{message.author.username}</span>
@@ -106,7 +132,7 @@ export default function TranscriptView({ data }: { data: TranscriptResponse }) {
                           <img src={attachment.proxy_url || attachment.url} alt={attachment.description || attachment.filename} />
                         </a>
                       ) : (
-                        <a href={attachment.url} target="_blank" rel="noreferrer">📎 {attachment.filename}</a>
+                        <a href={attachment.url} target="_blank" rel="noreferrer">File: {attachment.filename}</a>
                       )}
                     </div>
                   );
@@ -117,7 +143,7 @@ export default function TranscriptView({ data }: { data: TranscriptResponse }) {
         })}
       </section>
 
-      <footer className="page-footer">Transcript disimpan dalam gzip dan dilindungi URL bertanda tangan UAID.</footer>
+      <footer className="page-footer">Wevermore transcript disimpan dalam gzip dan dilindungi URL bertanda tangan UAID.</footer>
     </main>
   );
 }
