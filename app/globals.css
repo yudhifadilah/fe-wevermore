@@ -81,19 +81,22 @@ a { color: inherit; }
 .landing-card p { color: var(--muted); line-height: 1.7; }
 .error-card { border-color: rgba(255, 94, 156, .74); }
 
-.brand-avatar {
-  width: 74px;
-  height: 74px;
-  display: grid;
-  place-items: center;
-  margin: 0 auto 14px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 22%, #fff, var(--primary-soft) 18%, var(--primary-strong) 62%, #720042 100%);
-  color: #110009;
-  font-size: 34px;
-  font-weight: 950;
-  letter-spacing: -0.04em;
-  box-shadow: 0 0 0 8px rgba(255, 79, 184, 0.08), 0 0 42px rgba(255, 79, 184, 0.72);
+.brand-logo {
+  display: block;
+  object-fit: contain;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 143, 212, 0.34);
+  background: #050505;
+  box-shadow:
+    0 0 0 7px rgba(255, 79, 184, 0.07),
+    0 0 42px rgba(255, 79, 184, 0.58),
+    0 0 90px rgba(255, 47, 167, 0.24);
+}
+
+.hero-logo {
+  width: min(320px, 92%);
+  aspect-ratio: 1024 / 778;
+  margin: 0 auto 18px;
 }
 
 .landing-actions {
@@ -128,7 +131,15 @@ a { color: inherit; }
 .transcript-header > * { position: relative; z-index: 1; }
 .header-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
 .profile-heading { display: flex; align-items: center; gap: 16px; min-width: 0; }
-.profile-heading .brand-avatar { width: 66px; height: 66px; margin: 0; flex: 0 0 auto; font-size: 30px; }
+.header-logo {
+  width: 142px;
+  aspect-ratio: 1024 / 778;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 5px rgba(255, 79, 184, 0.06),
+    0 0 30px rgba(255, 79, 184, 0.46);
+}
 .eyebrow { color: var(--primary-soft); letter-spacing: .16em; font-weight: 900; font-size: 12px; text-transform: uppercase; text-shadow: 0 0 18px rgba(255, 79, 184, 0.55); }
 h1 { margin: 8px 0 0; font-size: clamp(28px, 5vw, 46px); overflow-wrap: anywhere; color: var(--text); text-shadow: 0 0 26px rgba(255, 79, 184, 0.42); }
 .header-subtitle { margin: 8px 0 0; color: var(--muted); line-height: 1.55; max-width: 560px; }
@@ -234,7 +245,7 @@ h1 { margin: 8px 0 0; font-size: clamp(28px, 5vw, 46px); overflow-wrap: anywhere
   .page-shell { width: min(100% - 18px, 1080px); padding-top: 12px; }
   .transcript-header { padding: 18px; }
   .header-topline, .profile-heading { flex-direction: column; align-items: flex-start; }
-  .profile-heading .brand-avatar { width: 60px; height: 60px; }
+  .header-logo { width: min(160px, 62vw); }
   .download-actions { justify-content: stretch; width: 100%; }
   .button { flex: 1; }
   .checkout-panel { grid-template-columns: 1fr; }

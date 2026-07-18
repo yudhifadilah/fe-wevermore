@@ -12,6 +12,24 @@ function first(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value ?? "";
 }
 
+function errorDetail(value: unknown, fallback: string) {
+  if (!value) return fallback;
+  if (typeof value === "string") return value;
+  if (typeof value === "object") {
+    const record = value as { message?: unknown; code?: unknown; error?: unknown };
+    if (typeof record.message === "string") {
+      return typeof record.code === "string" ? `${record.message} (${record.code})` : record.message;
+    }
+    if (typeof record.error === "string") return record.error;
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return fallback;
+    }
+  }
+  return String(value);
+}
+
 export default async function TranscriptPage({ params, searchParams }: PageProps) {
   const { id } = await params;
   const query = await searchParams;
@@ -38,8 +56,8 @@ export default async function TranscriptPage({ params, searchParams }: PageProps
   if (!response.ok) {
     let detail = `Backend mengembalikan HTTP ${response.status}.`;
     try {
-      const body = (await response.json()) as { error?: string };
-      if (body.error) detail = body.error;
+      const body = (await response.json()) as { error?: unknown; message?: unknown; code?: unknown };
+      detail = errorDetail(body.error ?? body, detail);
     } catch {
       // Gunakan pesan status standar.
     }
@@ -54,7 +72,7 @@ function ErrorState({ title, detail }: { title: string; detail: string }) {
   return (
     <main className="landing-shell">
       <section className="landing-card error-card">
-        <div className="brand-avatar">W</div>
+        <img className="brand-logo hero-logo" src="/wevermore-logo.png" alt="Wevermore logo" />
         <span className="eyebrow">WEVERMORE TRANSCRIPT</span>
         <h1>{title}</h1>
         <p>{detail}</p>
